@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:app/src/app/data/Datasource.dart';
+import 'package:app/src/models/contribution.dart';
 import 'package:app/src/utils/CustomField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -40,37 +41,40 @@ class _StateBody extends State<Login> {
       if (result.statusCode == 200) {
         var res = await jsonDecode(result.body);
         setState(() {
-          contrib = res['taxes'];
-          print(contrib);
+          contrib.clear();
+          for (var i = 0; i < res['taxes'].length; i++) {
+            contrib.add(
+                "${res['taxes'][i]['idtaxe']} - ${res['taxes'][i]['nomTaxe']}");
+          }
         });
       }
-      var resultMois = await DataSource.GetInstance!
-          .getData(url: 'get_list_mois_for_select.php');
-      if (resultMois.statusCode == 200) {
-        var res = await jsonDecode(resultMois.body);
-        setState(() {
-          moisData = res['mois'];
-          print(moisData);
-        });
-      }
-      var resultAnnee = await DataSource.GetInstance!
-          .getData(url: 'get_list_annees_for_select.php');
-      if (resultAnnee.statusCode == 200) {
-        var res = await jsonDecode(resultAnnee.body);
-        setState(() {
-          anneeData = res['annees'];
-          print(anneeData);
-        });
-      }
-      var resultActeGen = await DataSource.GetInstance!
-          .getData(url: 'get_list_actes_for_select.php');
-      if (resultActeGen.statusCode == 200) {
-        var res = await jsonDecode(resultActeGen.body);
-        setState(() {
-          acteGen = res['actes'];
-          print(acteGen);
-        });
-      }
+      // var resultMois = await DataSource.GetInstance!
+      //     .getData(url: 'get_list_mois_for_select.php');
+      // if (resultMois.statusCode == 200) {
+      //   var res = await jsonDecode(resultMois.body);
+      //   setState(() {
+      //     moisData = res['mois'];
+      //     print(moisData);
+      //   });
+      // }
+      // var resultAnnee = await DataSource.GetInstance!
+      //     .getData(url: 'get_list_annees_for_select.php');
+      // if (resultAnnee.statusCode == 200) {
+      //   var res = await jsonDecode(resultAnnee.body);
+      //   setState(() {
+      //     anneeData = res['annees'];
+      //     print(anneeData);
+      //   });
+      // }
+      // var resultActeGen = await DataSource.GetInstance!
+      //     .getData(url: 'get_list_actes_for_select.php');
+      // if (resultActeGen.statusCode == 200) {
+      //   var res = await jsonDecode(resultActeGen.body);
+      //   setState(() {
+      //     acteGen = res['actes'];
+      //     print(acteGen);
+      //   });
+      // }
     } catch (e) {
       print(e);
     }

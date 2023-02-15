@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'dart:ffi';
 
+import 'package:app/src/models/contribution.dart';
 import 'package:http/http.dart' as http;
 
 const endPoint = "http://comifin.saetech.site/comifin_mobile/get/";
