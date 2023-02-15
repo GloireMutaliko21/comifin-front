@@ -35,38 +35,51 @@ class _StateBody extends State<Login> {
 
   Future<bool> getUtilsData() async {
     try {
-      var result = await DataSource.GetInstance!.getData(url: '/contrib/all');
+      var result = await DataSource.GetInstance!
+          .getData(url: 'get_list_taxes_for_select.php');
       if (result.statusCode == 200) {
+        var res = await jsonDecode(result.body);
         setState(() {
-          contrib = jsonDecode(result.body);
+          contrib = res['taxes'];
+          print(contrib);
         });
       }
-      var resultMois = await DataSource.GetInstance!.getData(url: '/mois/all');
-      if (result.statusCode == 200) {
+      var resultMois = await DataSource.GetInstance!
+          .getData(url: 'get_list_mois_for_select.php');
+      if (resultMois.statusCode == 200) {
+        var res = await jsonDecode(resultMois.body);
         setState(() {
-          moisData = jsonDecode(resultMois.body);
+          moisData = res['mois'];
+          print(moisData);
         });
       }
-      var resultAnnee =
-          await DataSource.GetInstance!.getData(url: '/annee/all');
-      if (result.statusCode == 200) {
+      var resultAnnee = await DataSource.GetInstance!
+          .getData(url: 'get_list_annees_for_select.php');
+      if (resultAnnee.statusCode == 200) {
+        var res = await jsonDecode(resultAnnee.body);
         setState(() {
-          anneeData = jsonDecode(resultAnnee.body);
+          anneeData = res['annees'];
+          print(anneeData);
         });
       }
-      var resultActeGen =
-          await DataSource.GetInstance!.getData(url: '/actes/all');
-      if (result.statusCode == 200) {
+      var resultActeGen = await DataSource.GetInstance!
+          .getData(url: 'get_list_actes_for_select.php');
+      if (resultActeGen.statusCode == 200) {
+        var res = await jsonDecode(resultActeGen.body);
         setState(() {
-          acteGen = jsonDecode(resultActeGen.body);
+          acteGen = res['actes'];
+          print(acteGen);
         });
       }
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
     return false;
   }
 
   Future<bool> login() async {
     try {
+      getUtilsData();
       setState(() {
         inProgress = true;
       });
@@ -76,11 +89,8 @@ class _StateBody extends State<Login> {
             'email': username.text.trim(),
             'password': password.text.trim()
           });
-      var res = await jsonDecode(resultat.body);
-      print(res['msg']);
       if (resultat.statusCode == 200) {
         setState(() {
-          getUtilsData();
           inProgress = false;
         });
         return true;
@@ -96,17 +106,18 @@ class _StateBody extends State<Login> {
 
   eventLogin() async {
     bool status = await login();
-    if (status) {
-      setState(() {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return const Principal();
-        }));
-      });
-    } else {
-      setState(() {
-        inProgress = false;
-      });
-    }
+    await login();
+    // if (status) {
+    setState(() {
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+        return const Principal();
+      }));
+    });
+    // } else {
+    setState(() {
+      inProgress = false;
+    });
+    // }
   }
 
   @override

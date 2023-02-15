@@ -4,14 +4,14 @@ import 'dart:ffi';
 
 import 'package:http/http.dart' as http;
 
-const endPoint = "http://192.168.0.178:7700/loginapp/api/v1";
+const endPoint = "http://comifin.saetech.site/comifin_mobile/get/";
 
 List newPaiem = [];
 
-List<String> contrib = [];
-List<String> acteGen = [];
-List<String> moisData = [];
-List<String> anneeData = [];
+List contrib = <String>[];
+List acteGen = <String>[];
+List moisData = <String>[];
+List anneeData = <String>[];
 
 class DataSource {
   static DataSource? _instance;
@@ -36,9 +36,11 @@ class DataSource {
 
   Future<http.Response> getData({url}) async {
     try {
-      var response = await http.get(Uri.parse(url));
+      var response = await http.get(Uri.parse("$endPoint$url"));
       return response;
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
     // ignore: null_check_always_fails
     return null!;
   }
