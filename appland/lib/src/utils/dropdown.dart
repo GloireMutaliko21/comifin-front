@@ -48,7 +48,10 @@ List<DropdownMenuItem<String>> listElement({val}) {
                       borderRadius: BorderRadius.circular(15)),
                   child: Center(
                     child: Text(
-                      value.substring(0, 1).toUpperCase(),
+                      value
+                          .substring(
+                              value.indexOf('-') + 2, value.indexOf('-') + 3)
+                          .toUpperCase(),
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 14,
@@ -59,7 +62,7 @@ List<DropdownMenuItem<String>> listElement({val}) {
                 ),
                 const SizedBox(width: 3),
                 Text(
-                  value,
+                  value.substring(value.indexOf('-') + 1),
                   style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,

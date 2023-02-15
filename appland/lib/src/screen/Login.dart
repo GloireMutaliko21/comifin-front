@@ -44,7 +44,7 @@ class _StateBody extends State<Login> {
           contrib.clear();
           for (var i = 0; i < res['taxes'].length; i++) {
             contrib.add(
-                "${res['taxes'][i]['idtaxe']} - ${res['taxes'][i]['nomTaxe']}");
+                "${res['taxes'][i]['idtaxe']}-${res['taxes'][i]['nomTaxe']}");
           }
         });
       }
