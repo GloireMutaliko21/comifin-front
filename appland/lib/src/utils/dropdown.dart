@@ -50,7 +50,7 @@ List<DropdownMenuItem<String>> listElement({val}) {
                     child: Text(
                       value
                           .substring(
-                              value.indexOf('-') + 2, value.indexOf('-') + 3)
+                              value.indexOf('-') + 1, value.indexOf('-') + 2)
                           .toUpperCase(),
                       style: const TextStyle(
                         color: Colors.white,

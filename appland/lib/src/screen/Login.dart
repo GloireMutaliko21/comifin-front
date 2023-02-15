@@ -48,24 +48,31 @@ class _StateBody extends State<Login> {
           }
         });
       }
-      // var resultMois = await DataSource.GetInstance!
-      //     .getData(url: 'get_list_mois_for_select.php');
-      // if (resultMois.statusCode == 200) {
-      //   var res = await jsonDecode(resultMois.body);
-      //   setState(() {
-      //     moisData = res['mois'];
-      //     print(moisData);
-      //   });
-      // }
-      // var resultAnnee = await DataSource.GetInstance!
-      //     .getData(url: 'get_list_annees_for_select.php');
-      // if (resultAnnee.statusCode == 200) {
-      //   var res = await jsonDecode(resultAnnee.body);
-      //   setState(() {
-      //     anneeData = res['annees'];
-      //     print(anneeData);
-      //   });
-      // }
+      var resultMois = await DataSource.GetInstance!
+          .getData(url: 'get_list_mois_for_select.php');
+      if (resultMois.statusCode == 200) {
+        var res = await jsonDecode(resultMois.body);
+        setState(() {
+          moisData.clear();
+          for (var i = 0; i < res['mois'].length; i++) {
+            moisData
+                .add("${res['mois'][i]['idmois']}-${res['mois'][i]['mois']}");
+          }
+        });
+      }
+      var resultAnnee = await DataSource.GetInstance!
+          .getData(url: 'get_list_annees_for_select.php');
+      if (resultAnnee.statusCode == 200) {
+        var res = await jsonDecode(resultAnnee.body);
+        print(res);
+        setState(() {
+          anneeData.clear();
+          for (var i = 0; i < res['annees'].length; i++) {
+            anneeData.add(
+                "${res['annees'][i]['idanne']}-${res['annees'][i]['anne']}");
+          }
+        });
+      }
       // var resultActeGen = await DataSource.GetInstance!
       //     .getData(url: 'get_list_actes_for_select.php');
       // if (resultActeGen.statusCode == 200) {
