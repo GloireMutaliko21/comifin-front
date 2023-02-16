@@ -5,7 +5,7 @@ import 'dart:ffi';
 import 'package:app/src/models/contribution.dart';
 import 'package:http/http.dart' as http;
 
-const endPoint = "http://comifin.saetech.site/comifin_mobile/";
+const endPoint = "https://comifin.saetech.site/comifin_mobile/";
 const get = 'get/';
 const post = 'add/';
 

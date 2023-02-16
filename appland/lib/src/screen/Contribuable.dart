@@ -16,10 +16,10 @@ class Contribuable extends StatefulWidget {
 }
 
 class _StateBody extends State<Contribuable> {
-  var contribution = <String>[];
-  var devise = <String>[];
-  var mois = <String>[];
-  var annee = <String>[];
+  var contribution = '';
+  var devise = '';
+  var mois = '';
+  var annee = '';
   TextEditingController nomComplet = TextEditingController();
   TextEditingController montant = TextEditingController();
 
@@ -38,7 +38,7 @@ class _StateBody extends State<Contribuable> {
         inProgress = true;
       });
       var resultat =
-          await DataSource.GetInstance!.isSave(url: '/paiement/add', body: {
+          await DataSource.GetInstance!.isSave(url: 'add_payement.php', body: {
         'contribution': contribution,
         'montant': montant.text.trim(),
         'nomComplet': nomComplet,
@@ -126,7 +126,7 @@ class _StateBody extends State<Contribuable> {
                               valeur: "CDF",
                               onChanged: (val) {
                                 setState(() {
-                                  contribution = val;
+                                  devise = val;
                                   FocusScope.of(context)
                                       .requestFocus(FocusNode());
                                 });
@@ -147,7 +147,7 @@ class _StateBody extends State<Contribuable> {
                         valeur: null,
                         onChanged: (val) {
                           setState(() {
-                            contribution = val;
+                            mois = val;
                             FocusScope.of(context).requestFocus(FocusNode());
                           });
                         }),
@@ -159,7 +159,7 @@ class _StateBody extends State<Contribuable> {
                         valeur: null,
                         onChanged: (val) {
                           setState(() {
-                            contribution = val;
+                            annee = val;
                             FocusScope.of(context).requestFocus(FocusNode());
                           });
                         }),

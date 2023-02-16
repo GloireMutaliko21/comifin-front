@@ -17,11 +17,11 @@ class Constribution extends StatefulWidget {
 }
 
 class _StateBody extends State<Constribution> {
-  var contribution = <String>[];
-  var acteGenerateur = <String>[];
-  var devise = <String>[];
-  var mois = <String?>[];
-  var annee = <String>[];
+  var contribution = '';
+  var acteGenerateur = '';
+  var devise = '';
+  var mois = '';
+  var annee = '';
   TextEditingController montant = TextEditingController();
 
   bool inProgress = false;
