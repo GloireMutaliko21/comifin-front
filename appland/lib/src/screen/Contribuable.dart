@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:app/rapports/ticket.dart';
 import 'package:app/src/app/data/Datasource.dart';
+import 'package:app/src/models/session.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -44,7 +45,8 @@ class _StateBody extends State<Contribuable> {
         'exploitant': nomComplet,
         'Fk_idmois': mois,
         'Fk_idanne': annee,
-        'device': devise
+        'device': devise,
+        'Fk_idagent': MyPreferences.userId
       });
       var res = await jsonDecode(resultat.body);
       print(res['msg']);

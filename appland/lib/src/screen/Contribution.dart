@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:app/rapports/ticket.dart';
 import 'package:app/src/app/data/Datasource.dart';
+import 'package:app/src/models/session.dart';
 import 'package:app/src/utils/dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
@@ -38,11 +39,13 @@ class _StateBody extends State<Constribution> {
       });
       var resultat =
           await DataSource.GetInstance!.isSave(url: '/paiement/add', body: {
-        'contribution': contribution,
+        'Fk_idtaxe': contribution,
         'montant': montant.text.trim(),
-        'actegenerateur': acteGenerateur,
-        'mois': mois,
-        'annee': annee
+        'Fk_idacte': acteGenerateur,
+        'Fk_idmois': mois,
+        'Fk_idanne': annee,
+        'device': devise,
+        'Fk_idagent': MyPreferences.userId
       });
       var res = await jsonDecode(resultat.body);
       print(res['msg']);
