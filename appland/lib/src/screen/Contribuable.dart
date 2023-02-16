@@ -39,11 +39,12 @@ class _StateBody extends State<Contribuable> {
       });
       var resultat =
           await DataSource.GetInstance!.isSave(url: 'add_payement.php', body: {
-        'contribution': contribution,
+        'Fk_idtaxe': contribution,
         'montant': montant.text.trim(),
-        'nomComplet': nomComplet,
-        'mois': mois,
-        'annee': annee
+        'exploitant': nomComplet,
+        'Fk_idmois': mois,
+        'Fk_idanne': annee,
+        'device': devise
       });
       var res = await jsonDecode(resultat.body);
       print(res['msg']);
