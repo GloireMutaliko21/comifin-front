@@ -5,6 +5,7 @@ import 'dart:convert';
 
 import 'package:app/src/app/data/Datasource.dart';
 import 'package:app/src/models/contribution.dart';
+import 'package:app/src/models/session.dart';
 import 'package:app/src/utils/CustomField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -104,10 +105,17 @@ class _StateBody extends State<Login> {
           url: 'login.php',
           body: {'user': username.text.trim(), 'pass': password.text.trim()});
       if (resultat.statusCode == 200) {
-        setState(() {
-          inProgress = false;
-        });
-        return true;
+        var res = await jsonDecode(resultat.body);
+        if (res.length > 0) {
+          await MyPreferences.getInit.setPersistence(res).then((value) {
+            setState(() {
+              inProgress = false;
+            });
+          });
+          return true;
+        } else {
+          // Display a message login failed
+        }
       }
     } catch (_) {
       setState(() {
