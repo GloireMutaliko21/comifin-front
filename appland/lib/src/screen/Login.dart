@@ -32,10 +32,24 @@ class _StateBody extends State<Login> {
   @override
   void initState() {
     super.initState();
+    getUtilsData();
   }
 
   Future<bool> getUtilsData() async {
     try {
+      var resultActeGen = await DataSource.GetInstance!
+          .getData(url: 'get_list_actes_for_select.php');
+      if (resultActeGen.statusCode == 200) {
+        var res = await jsonDecode(resultActeGen.body);
+        setState(() {
+          acteGen.clear();
+          for (var i = 0; i < res['actes'].length; i++) {
+            acteGen.add(
+                "${res['actes'][i]['idacte']}-${res['actes'][i]['nomActe']}");
+          }
+        });
+      }
+
       var result = await DataSource.GetInstance!
           .getData(url: 'get_list_taxes_for_select.php');
       if (result.statusCode == 200) {
@@ -48,6 +62,7 @@ class _StateBody extends State<Login> {
           }
         });
       }
+
       var resultMois = await DataSource.GetInstance!
           .getData(url: 'get_list_mois_for_select.php');
       if (resultMois.statusCode == 200) {
@@ -60,11 +75,11 @@ class _StateBody extends State<Login> {
           }
         });
       }
+
       var resultAnnee = await DataSource.GetInstance!
           .getData(url: 'get_list_annees_for_select.php');
       if (resultAnnee.statusCode == 200) {
         var res = await jsonDecode(resultAnnee.body);
-        print(res);
         setState(() {
           anneeData.clear();
           for (var i = 0; i < res['annees'].length; i++) {
@@ -73,15 +88,6 @@ class _StateBody extends State<Login> {
           }
         });
       }
-      // var resultActeGen = await DataSource.GetInstance!
-      //     .getData(url: 'get_list_actes_for_select.php');
-      // if (resultActeGen.statusCode == 200) {
-      //   var res = await jsonDecode(resultActeGen.body);
-      //   setState(() {
-      //     acteGen = res['actes'];
-      //     print(acteGen);
-      //   });
-      // }
     } catch (e) {
       print(e);
     }

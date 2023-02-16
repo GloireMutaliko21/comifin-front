@@ -38,38 +38,41 @@ List<DropdownMenuItem<String>> listElement({val}) {
       value: value,
       child: val == null || val.isEmpty
           ? const Text("")
-          : Row(
-              children: [
-                Container(
-                  height: 20,
-                  width: 20,
-                  decoration: BoxDecoration(
-                      color: color_green,
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Center(
-                    child: Text(
-                      value
-                          .substring(
-                              value.indexOf('-') + 1, value.indexOf('-') + 2)
-                          .toUpperCase(),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
+          : Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 0.8),
+              child: Row(
+                children: [
+                  Container(
+                    height: 20,
+                    width: 20,
+                    decoration: BoxDecoration(
+                        color: color_green,
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Center(
+                      child: Text(
+                        value
+                            .substring(
+                                value.indexOf('-') + 1, value.indexOf('-') + 2)
+                            .toUpperCase(),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 3),
-                Text(
-                  value.substring(value.indexOf('-') + 1),
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                  const SizedBox(width: 3),
+                  Text(
+                    value.substring(value.indexOf('-') + 1),
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
     );
   }).toList();
