@@ -102,10 +102,7 @@ class _StateBody extends State<Login> {
       });
       var resultat = await DataSource.GetInstance!.isSave(
           url: '/users/login',
-          body: {
-            'email': username.text.trim(),
-            'password': password.text.trim()
-          });
+          body: {'user': username.text.trim(), 'pass': password.text.trim()});
       if (resultat.statusCode == 200) {
         setState(() {
           inProgress = false;
