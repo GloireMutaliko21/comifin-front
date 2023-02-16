@@ -1,13 +1,11 @@
 import 'dart:io';
 
+import 'package:app/src/app/data/Datasource.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:universal_html/html.dart' as html;
 
 class Ticket extends StatefulWidget {
   const Ticket({Key? key}) : super(key: key);
@@ -68,7 +66,7 @@ class _TicketState extends State<Ticket> {
             pw.Container(color: PdfColors.black, height: 1),
             pw.SizedBox(height: 30),
             pw.Table.fromTextArray(
-              data: data,
+              data: newPaiem,
               headers: headers,
               border: pw.TableBorder.all(),
               headerStyle:

@@ -71,7 +71,7 @@ class _StateBody extends State<Contribuable> {
     if (status) {
       setState(() {
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: ((context) => Ticket())));
+            .push(MaterialPageRoute(builder: ((context) => const Ticket())));
       });
     } else {
       setState(() {
