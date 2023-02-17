@@ -29,6 +29,7 @@ class _StateBody extends State<Constribution> {
 
   @override
   void initState() {
+    MyPreferences().getPersistence();
     super.initState();
   }
 

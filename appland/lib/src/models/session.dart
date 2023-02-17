@@ -11,11 +11,11 @@ class MyPreferences {
 
   Future<bool> setPersistence(var data) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return preferences.setString('Fk_idagent', data[0]['Fk_idagent']);
+    return preferences.setString('id', data['id']);
   }
 
   Future<void> getPersistence() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    userId = preferences.getString('Fk_idagent').toString();
+    userId = preferences.getString('id').toString();
   }
 }

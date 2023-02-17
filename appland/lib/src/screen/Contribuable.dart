@@ -29,6 +29,7 @@ class _StateBody extends State<Contribuable> {
   @override
   void initState() {
     super.initState();
+    MyPreferences().getPersistence();
   }
 
   String dropdownValue = 'Dog';

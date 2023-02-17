@@ -109,6 +109,7 @@ class _StateBody extends State<Login> {
         if (res.length > 0) {
           await MyPreferences.getInit.setPersistence(res).then((value) {
             setState(() {
+              // print(res['id']);
               inProgress = false;
             });
           });
