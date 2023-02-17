@@ -24,8 +24,7 @@ class DataSource {
 
   Future<http.Response> isSave({url, body}) async {
     try {
-      var response =
-          await http.post(Uri.parse("$endPoint$post$url"), body: body);
+      var response = await http.post(Uri.parse("$endPoint$url"), body: body);
       return response;
     } catch (e) {
       print(e.toString());

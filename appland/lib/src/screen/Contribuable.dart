@@ -39,8 +39,8 @@ class _StateBody extends State<Contribuable> {
       setState(() {
         inProgress = true;
       });
-      var resultat =
-          await DataSource.GetInstance!.isSave(url: 'add_payement.php', body: {
+      var resultat = await DataSource.GetInstance!
+          .isSave(url: 'add/add_payement.php', body: {
         'Fk_idtaxe': contribution,
         'montant': montant.text.trim(),
         'exploitant': nomComplet,
