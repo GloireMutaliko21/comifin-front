@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 const endPoint = "https://comifin.saetech.site/comifin_mobile/";
 const get = 'get/';
-const post = 'add/';
+const post = 'login/';
 
 List<List<dynamic>> newPaiem = [];
 
