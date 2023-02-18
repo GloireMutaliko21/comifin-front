@@ -60,7 +60,7 @@ class _StateBody extends State<Historique> {
                     controller: null,
                   ),
                   ListView.builder(
-                    itemCount: listedata!.length,
+                    itemCount: listedata.length,
                     itemBuilder: (BuildContext context, int index) {
                       return CardOper(
                         devise: listedata[index]['devise'],

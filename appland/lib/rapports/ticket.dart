@@ -21,33 +21,13 @@ class _TicketState extends State<Ticket> {
       '',
       '',
     ];
-    final data = [
-      {
-        'data': {
-          'Contribution': '10',
-          'Montant': 1000,
-          'Acte Gen': 'Acte',
-          'Mois': 'Novembre',
-          'Année': 2023
-        }
-      },
-    ].map((item) {
-      return [
-        'Contribution',
-        '${item['data']}',
-        // 'Contribution',
-        // '${item['Contribution']}',
-        // 'Contribution',
-        // '${item['Contribution']}',
-      ];
-    }).toList();
 
     final pdf = pw.Document();
 
     Future<void> docs() async {
       final bytes = await pdf.save();
       final dir = await getApplicationDocumentsDirectory();
-      final file = File('${dir.path}/vendeurs.pdf');
+      final file = File('${dir.path}/paiement.pdf');
 
       await file.writeAsBytes(bytes);
       final url = file.path;
@@ -71,7 +51,8 @@ class _TicketState extends State<Ticket> {
               border: pw.TableBorder.all(),
               headerStyle:
                   pw.TextStyle(fontWeight: pw.FontWeight.normal, fontSize: 10),
-              headerDecoration: pw.BoxDecoration(color: PdfColors.grey300),
+              headerDecoration:
+                  const pw.BoxDecoration(color: PdfColors.grey300),
               cellHeight: 30,
               cellAlignments: {
                 0: pw.Alignment.centerLeft,
@@ -95,9 +76,9 @@ class _TicketState extends State<Ticket> {
               onPressed: () async {
                 setState(() => {docs()});
               },
-              child: Text('Ouvrir'),
+              child: const Text('Ouvrir'),
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             ElevatedButton(
               onPressed: () async {
                 final bytes = await pdf.save();
@@ -108,7 +89,7 @@ class _TicketState extends State<Ticket> {
                 final url = file.path;
                 await OpenFile.open(url);
               },
-              child: Text('Télécharger'),
+              child: const Text('Télécharger'),
             ),
           ],
         ),
