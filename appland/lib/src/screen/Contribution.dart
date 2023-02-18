@@ -43,6 +43,7 @@ class _StateBody extends State<Constribution> {
           .isSave(url: 'add/add_payement.php', body: {
         'Fk_idtaxe': contribution.substring(0, contribution.indexOf('-')),
         'montant': montant.text.trim(),
+        'exploitant': '',
         'Fk_idacte': acteGenerateur.substring(0, acteGenerateur.indexOf('-')),
         'Fk_idmois': mois.substring(0, mois.indexOf('-')),
         'Fk_idanne': annee.substring(0, annee.indexOf('-')),
@@ -52,8 +53,8 @@ class _StateBody extends State<Constribution> {
       var res = await jsonDecode(resultat.body);
       print(res['message']);
       if (resultat.statusCode == 201) {
-        setState(() async {
-          newPaiem = await jsonDecode(resultat.body);
+        setState(() {
+          newPaiem = res;
           inProgress = false;
         });
         return true;

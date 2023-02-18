@@ -43,17 +43,19 @@ class _StateBody extends State<Contribuable> {
           .isSave(url: 'add/add_payement.php', body: {
         'Fk_idtaxe': contribution.substring(0, contribution.indexOf('-')),
         'montant': montant.text.trim(),
-        'exploitant': nomComplet,
+        'exploitant': nomComplet.text.trim(),
         'Fk_idmois': mois.substring(0, mois.indexOf('-')),
         'Fk_idanne': annee.substring(0, annee.indexOf('-')),
         'device': devise,
-        'Fk_idagent': MyPreferences.userId
+        'Fk_idagent': MyPreferences.userId,
+        'Fk_idacte': ''
       });
       var res = await jsonDecode(resultat.body);
-      print(res['msg']);
-      if (resultat.statusCode == 201) {
-        setState(() async {
-          newPaiem = await jsonDecode(resultat.body);
+      print(res['message']);
+      // print(nomComplet.text.trim());
+      if (res.length > 0) {
+        setState(() {
+          newPaiem = res;
           inProgress = false;
         });
         return true;
