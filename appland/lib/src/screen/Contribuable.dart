@@ -41,11 +41,11 @@ class _StateBody extends State<Contribuable> {
       });
       var resultat = await DataSource.GetInstance!
           .isSave(url: 'add/add_payement.php', body: {
-        'Fk_idtaxe': contribution,
+        'Fk_idtaxe': contribution.substring(0, contribution.indexOf('-')),
         'montant': montant.text.trim(),
         'exploitant': nomComplet,
-        'Fk_idmois': mois,
-        'Fk_idanne': annee,
+        'Fk_idmois': mois.substring(0, mois.indexOf('-')),
+        'Fk_idanne': annee.substring(0, annee.indexOf('-')),
         'device': devise,
         'Fk_idagent': MyPreferences.userId
       });

@@ -38,18 +38,19 @@ class _StateBody extends State<Constribution> {
       setState(() {
         inProgress = true;
       });
+      print(contribution.substring(0, contribution.indexOf('-')));
       var resultat = await DataSource.GetInstance!
           .isSave(url: 'add/add_payement.php', body: {
-        'Fk_idtaxe': contribution,
+        'Fk_idtaxe': contribution.substring(0, contribution.indexOf('-')),
         'montant': montant.text.trim(),
-        'Fk_idacte': acteGenerateur,
-        'Fk_idmois': mois,
-        'Fk_idanne': annee,
+        'Fk_idacte': acteGenerateur.substring(0, acteGenerateur.indexOf('-')),
+        'Fk_idmois': mois.substring(0, mois.indexOf('-')),
+        'Fk_idanne': annee.substring(0, annee.indexOf('-')),
         'device': devise,
         'Fk_idagent': MyPreferences.userId
       });
       var res = await jsonDecode(resultat.body);
-      print(res['msg']);
+      print(res['message']);
       if (resultat.statusCode == 201) {
         setState(() async {
           newPaiem = await jsonDecode(resultat.body);

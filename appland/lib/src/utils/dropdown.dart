@@ -13,7 +13,7 @@ Widget cbList({
       isExpanded: true,
       items: list,
       value: valeur,
-      onChanged: (value) => onChanged,
+      onChanged: ((value) => onChanged!(value)),
       hint: Text(
         "$title",
         style: const TextStyle(
