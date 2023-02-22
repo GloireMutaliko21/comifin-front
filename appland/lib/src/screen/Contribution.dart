@@ -55,7 +55,6 @@ class _StateBody extends State<Constribution> {
         setState(() {
           newPaiem = res;
           inProgress = false;
-          print(newPaiem);
         });
 
         return true;

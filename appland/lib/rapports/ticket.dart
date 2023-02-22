@@ -15,23 +15,27 @@ class Ticket extends StatefulWidget {
 }
 
 class _TicketState extends State<Ticket> {
+  String exploitant = '';
+  String exploitantActe = '';
+  String acte = '';
+  String montant = '';
+  String devise = '';
+  String annee = '';
+  String mois = '';
+  @override
+  void initState() {
+    exploitant = newPaiem["exploitant"] ?? 'Aucun';
+    exploitantActe = newPaiem["exploitant_acte"];
+    acte = newPaiem["acte"];
+    montant = newPaiem["montant"];
+    devise = newPaiem["device"];
+    annee = newPaiem["annee"];
+    mois = newPaiem["mois"];
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final headers = [
-      'OK OK OK',
-      'NOK NOK NOK',
-    ];
-
-    final data = [
-      {'ok': 'Gloire', 'nok': 'Inconnu'}
-    ].map((datum) {
-      return ['${datum["ok"]}', '${datum["nok"]}'];
-    }).toList();
-    //   {'nom': 'Gloire'},
-    //   {'montant': 'Gloire'},
-    //   {'mois': 'Fevrier'}
-    // ];
-
     final pdf = pw.Document();
 
     Future<void> docs() async {
@@ -48,38 +52,88 @@ class _TicketState extends State<Ticket> {
     pdf.addPage(pw.Page(
         pageFormat: PdfPageFormat.a4,
         build: (pw.Context context) {
-          return pw.Center(
-              child: pw.Column(children: <pw.Widget>[
-            pw.Text("TICKET",
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-            pw.SizedBox(height: 10),
-            pw.Container(color: PdfColors.black, height: 1),
-            pw.SizedBox(height: 30),
-            pw.Container(
-                child: pw.Column(children: [
-              pw.Row(children: [
-                pw.Expanded(child: pw.Text('$newPaiem["errore"]'))
-              ])
-            ])),
-            // pw.Table.fromTextArray(
-            //   data: data,
-            //   headers: headers,
-            //   border: pw.TableBorder.all(),
-            //   headerStyle:
-            //       pw.TextStyle(fontWeight: pw.FontWeight.normal, fontSize: 10),
-            //   headerDecoration:
-            //       const pw.BoxDecoration(color: PdfColors.grey300),
-            //   cellHeight: 30,
-            //   cellAlignments: {
-            //     0: pw.Alignment.centerLeft,
-            //     1: pw.Alignment.centerLeft,
-            //     // 2: pw.Alignment.centerLeft,
-            //     // 3: pw.Alignment.centerLeft,
-            //     // 4: pw.Alignment.centerLeft,
-            //     // 5: pw.Alignment.centerLeft,
-            //   },
-            // )
-          ]));
+          return pw.Container(
+              decoration: pw.BoxDecoration(
+                  border: pw.Border.all(color: PdfColors.black)),
+              child: pw.Center(
+                  child: pw.Column(children: <pw.Widget>[
+                pw.SizedBox(height: 10),
+                pw.Text("TICKET",
+                    style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                pw.SizedBox(height: 10),
+                pw.Container(
+                  color: PdfColors.black,
+                  height: 2,
+                ),
+                pw.SizedBox(height: 30),
+                pw.Container(
+                    child: pw.Column(children: [
+                  pw.Row(children: [
+                    pw.Expanded(
+                        child: pw.Text('Exploitant',
+                            style:
+                                pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+                    pw.Expanded(
+                        child: pw.Text('Acte Exploitant',
+                            style:
+                                pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+                    pw.Expanded(
+                        child: pw.Text('Acte',
+                            style:
+                                pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+                    pw.Expanded(
+                        child: pw.Text('Montant',
+                            style:
+                                pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+                    pw.Expanded(
+                        child: pw.Text('Devise',
+                            style:
+                                pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+                    pw.Expanded(
+                        child: pw.Text('Mois',
+                            style:
+                                pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+                    pw.Expanded(
+                        child: pw.Text('Année',
+                            style:
+                                pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+                  ]),
+                  pw.SizedBox(height: 10),
+                  pw.Container(color: PdfColors.black, height: 1),
+                  pw.SizedBox(height: 30),
+                  pw.Row(children: [
+                    pw.Expanded(
+                        child: pw.Text(exploitant,
+                            style:
+                                pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+                    pw.Expanded(
+                        child: pw.Text(exploitantActe,
+                            style:
+                                pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+                    pw.Expanded(
+                        child: pw.Text(acte,
+                            style:
+                                pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+                    pw.Expanded(
+                        child: pw.Text(montant,
+                            style:
+                                pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+                    pw.Expanded(
+                        child: pw.Text(devise,
+                            style:
+                                pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+                    pw.Expanded(
+                        child: pw.Text(mois,
+                            style: pw.TextStyle(
+                              fontWeight: pw.FontWeight.bold,
+                            ))),
+                    pw.Expanded(
+                        child: pw.Text(annee,
+                            style:
+                                pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+                  ]),
+                ])),
+              ])));
         }));
 
     return Container(
