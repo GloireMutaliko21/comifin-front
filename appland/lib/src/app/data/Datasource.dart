@@ -5,7 +5,7 @@ const endPoint = "https://comifin.saetech.site/comifin_mobile/";
 const get = 'get/';
 const post = 'login/';
 
-List<List<dynamic>> newPaiem = [];
+var newPaiem = {};
 
 List contrib = <String>[];
 List acteGen = <String>[];

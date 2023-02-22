@@ -38,7 +38,6 @@ class _StateBody extends State<Constribution> {
       setState(() {
         inProgress = true;
       });
-      print(contribution.substring(0, contribution.indexOf('-')));
       var resultat = await DataSource.GetInstance!
           .isSave(url: 'add/add_payement.php', body: {
         'Fk_idtaxe': contribution.substring(0, contribution.indexOf('-')),
@@ -51,12 +50,14 @@ class _StateBody extends State<Constribution> {
         'Fk_idagent': MyPreferences.userId
       });
       var res = await jsonDecode(resultat.body);
-      print(res['message']);
-      if (resultat.statusCode == 201) {
+      // print(res['message']);
+      if (res.length > 0) {
         setState(() {
           newPaiem = res;
           inProgress = false;
+          print(newPaiem);
         });
+
         return true;
       }
     } catch (_) {
@@ -73,7 +74,7 @@ class _StateBody extends State<Constribution> {
     if (status) {
       setState(() {
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: ((context) => Ticket())));
+            .push(MaterialPageRoute(builder: ((context) => const Ticket())));
       });
     } else {
       setState(() {

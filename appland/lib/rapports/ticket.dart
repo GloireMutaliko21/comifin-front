@@ -18,9 +18,19 @@ class _TicketState extends State<Ticket> {
   @override
   Widget build(BuildContext context) {
     final headers = [
-      '',
-      '',
+      'OK OK OK',
+      'NOK NOK NOK',
     ];
+
+    final data = [
+      {'ok': 'Gloire', 'nok': 'Inconnu'}
+    ].map((datum) {
+      return ['${datum["ok"]}', '${datum["nok"]}'];
+    }).toList();
+    //   {'nom': 'Gloire'},
+    //   {'montant': 'Gloire'},
+    //   {'mois': 'Fevrier'}
+    // ];
 
     final pdf = pw.Document();
 
@@ -45,24 +55,30 @@ class _TicketState extends State<Ticket> {
             pw.SizedBox(height: 10),
             pw.Container(color: PdfColors.black, height: 1),
             pw.SizedBox(height: 30),
-            pw.Table.fromTextArray(
-              data: newPaiem,
-              headers: headers,
-              border: pw.TableBorder.all(),
-              headerStyle:
-                  pw.TextStyle(fontWeight: pw.FontWeight.normal, fontSize: 10),
-              headerDecoration:
-                  const pw.BoxDecoration(color: PdfColors.grey300),
-              cellHeight: 30,
-              cellAlignments: {
-                0: pw.Alignment.centerLeft,
-                1: pw.Alignment.centerLeft,
-                // 2: pw.Alignment.centerLeft,
-                // 3: pw.Alignment.centerLeft,
-                // 4: pw.Alignment.centerLeft,
-                // 5: pw.Alignment.centerLeft,
-              },
-            )
+            pw.Container(
+                child: pw.Column(children: [
+              pw.Row(children: [
+                pw.Expanded(child: pw.Text('$newPaiem["errore"]'))
+              ])
+            ])),
+            // pw.Table.fromTextArray(
+            //   data: data,
+            //   headers: headers,
+            //   border: pw.TableBorder.all(),
+            //   headerStyle:
+            //       pw.TextStyle(fontWeight: pw.FontWeight.normal, fontSize: 10),
+            //   headerDecoration:
+            //       const pw.BoxDecoration(color: PdfColors.grey300),
+            //   cellHeight: 30,
+            //   cellAlignments: {
+            //     0: pw.Alignment.centerLeft,
+            //     1: pw.Alignment.centerLeft,
+            //     // 2: pw.Alignment.centerLeft,
+            //     // 3: pw.Alignment.centerLeft,
+            //     // 4: pw.Alignment.centerLeft,
+            //     // 5: pw.Alignment.centerLeft,
+            //   },
+            // )
           ]));
         }));
 
@@ -83,7 +99,7 @@ class _TicketState extends State<Ticket> {
               onPressed: () async {
                 final bytes = await pdf.save();
                 final dir = await getApplicationDocumentsDirectory();
-                final file = File('${dir.path}/vendeurs.pdf');
+                final file = File('${dir.path}/ticket.pdf');
 
                 await file.writeAsBytes(bytes);
                 final url = file.path;
