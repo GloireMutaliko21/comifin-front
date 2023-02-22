@@ -16,19 +16,22 @@ class Historique extends StatefulWidget {
 }
 
 class _StateBody extends State<Historique> {
-  Map<String, dynamic> listedata = Map();
+  List listedata = [];
 
   @override
   void initState() {
+    getUtilsData();
     super.initState();
   }
 
   Future<bool> getUtilsData() async {
     try {
-      var result = await DataSource.GetInstance!.getData(url: '/paiement/all');
+      var result =
+          await DataSource.GetInstance!.getData(url: 'get_list_payement.php');
       if (result.statusCode == 200) {
         setState(() {
           listedata = jsonDecode(result.body);
+          print(listedata);
         });
       }
     } catch (e) {
@@ -42,102 +45,47 @@ class _StateBody extends State<Historique> {
   Widget build(BuildContext context) {
     Size h = MediaQuery.of(context).size;
     Size w = MediaQuery.of(context).size;
-    return SizedBox(
-      height: h.height,
-      width: w.width,
-      child: Stack(children: [
+    return Stack(
+      children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            child: SizedBox(
-              width: w.width,
-              child: Column(
-                children: [
-                  const SizedBox(height: 100),
-                  buildTextField(
-                    lineIcons: const Icon(LineIcons.search),
-                    name: "Rechercher",
-                    controller: null,
-                  ),
-                  ListView.builder(
-                    itemCount: listedata.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return CardOper(
-                        devise: listedata[index]['devise'],
-                        montant: listedata[index]['montant'],
-                        date:
-                            "${listedata[index]['mois']} - ${listedata[index]['annee']}",
-                        motif: listedata[index]['motif'],
-                        user: listedata[index]['agent'] ||
-                            listedata[index]['acteGen'],
-                      );
-                    },
-                  )
-                ],
+          padding: const EdgeInsets.only(top: 2.0, bottom: 70.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              buildTextField(
+                lineIcons: const Icon(LineIcons.search),
+                name: "Rechercher",
+                controller: null,
               ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 2,
-          child: Container(
-            height: h.height * .1,
-            width: w.width,
-            color: custom_white,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const Icon(
-                                LineIcons.history,
-                                size: 30,
-                                color: color_green,
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                "Historique".toUpperCase(),
-                                style: const TextStyle(
-                                  color: custom_black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Center(
-                          child: Icon(
-                            LineIcons.print,
-                            size: 30,
-                            color: color_green,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: listedata.length,
+                  itemBuilder: (context, int index) {
+                    var data = listedata[index];
+                    return CardOper(
+                      date: data['datePayement'],
+                      devise: data['device'],
+                      id: data['idpayement'],
+                      montant: data['montant'],
+                      motif:
+                          "${data['Fk_idtaxe']}     ${data['Fk_idmois']}/${data['Fk_idanne']}",
+                      user: data['exploitant'].length > 0
+                          ? data['exploitant']
+                          : data['Fk_idacte'],
+                    );
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-      ]),
+      ],
     );
   }
 }
 
 class CardOper extends StatelessWidget {
-  final type;
+  final id;
   final montant;
   final date;
   final motif;
@@ -146,7 +94,7 @@ class CardOper extends StatelessWidget {
 
   const CardOper({
     Key? key,
-    this.type,
+    this.id,
     this.montant,
     this.date,
     this.motif,
@@ -185,7 +133,7 @@ class CardOper extends StatelessWidget {
                                 width: 10,
                                 height: 10,
                                 decoration: BoxDecoration(
-                                    color: type != 'Sortie'
+                                    color: id != 'Sortie'
                                         ? const Color(0xFF42A5F5)
                                         : const Color(0xfff8b250),
                                     borderRadius: BorderRadius.circular(10)),
@@ -195,7 +143,7 @@ class CardOper extends StatelessWidget {
                               ),
                               Expanded(
                                 child: Text(
-                                  "$type",
+                                  "$id",
                                   style: const TextStyle(
                                     fontSize: 13,
                                     fontWeight: FontWeight.w400,
