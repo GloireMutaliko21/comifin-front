@@ -36,6 +36,46 @@ class _StateBody extends State<Login> {
     getUtilsData();
   }
 
+  String getMonth(mois) {
+    if (mois == "1") {
+      return 'Janvier';
+    }
+    if (mois == "2") {
+      return 'Février';
+    }
+    if (mois == "3") {
+      return 'Mars';
+    }
+    if (mois == "4") {
+      return 'Avril';
+    }
+    if (mois == "5") {
+      return 'Mai';
+    }
+    if (mois == "6") {
+      return 'Juin';
+    }
+    if (mois == "7") {
+      return 'Juillet';
+    }
+    if (mois == "8") {
+      return 'Août';
+    }
+    if (mois == "9") {
+      return 'Septembre';
+    }
+    if (mois == "10") {
+      return 'Octobre';
+    }
+    if (mois == "11") {
+      return 'Novembre';
+    }
+    if (mois == "12") {
+      return 'Décembre';
+    }
+    return '';
+  }
+
   Future<bool> getUtilsData() async {
     try {
       var resultActeGen = await DataSource.GetInstance!
@@ -71,6 +111,9 @@ class _StateBody extends State<Login> {
         setState(() {
           moisData.clear();
           for (var i = 0; i < res['mois'].length; i++) {
+            setState(() {
+              res['mois'][i]['mois'] = getMonth(res['mois'][i]['mois']);
+            });
             moisData
                 .add("${res['mois'][i]['idmois']}-${res['mois'][i]['mois']}");
           }
