@@ -31,7 +31,6 @@ class _StateBody extends State<Historique> {
       if (result.statusCode == 200) {
         setState(() {
           listedata = jsonDecode(result.body);
-          print(listedata);
         });
       }
     } catch (e) {
