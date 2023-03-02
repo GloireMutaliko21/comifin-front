@@ -91,6 +91,19 @@ class _StateBody extends State<Login> {
         });
       }
 
+      var taxeJourDada = await DataSource.GetInstance!
+          .getData(url: 'get_list_taxes_journaliere_for_select.php');
+      if (taxeJourDada.statusCode == 200) {
+        var res = await jsonDecode(taxeJourDada.body);
+        setState(() {
+          taxesJours.clear();
+          for (var i = 0; i < res['taxes'].length; i++) {
+            taxesJours.add(
+                "${res['taxes'][i]['idtaxe']}-${res['taxes'][i]['nomTaxe']}");
+          }
+        });
+      }
+
       var result = await DataSource.GetInstance!
           .getData(url: 'get_list_taxes_for_select.php');
       if (result.statusCode == 200) {

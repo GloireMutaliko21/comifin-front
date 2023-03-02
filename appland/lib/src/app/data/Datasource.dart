@@ -8,6 +8,7 @@ const post = 'login/';
 var newPaiem = {};
 
 List contrib = <String>[];
+List taxesJours = <String>[];
 List acteGen = <String>[];
 List moisData = <String>[];
 List anneeData = <String>[];

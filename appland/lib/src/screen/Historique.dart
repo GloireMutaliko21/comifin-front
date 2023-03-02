@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:app/src/app/data/Datasource.dart';
+import 'package:app/src/models/session.dart';
 import 'package:app/src/utils/dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
@@ -26,8 +27,9 @@ class _StateBody extends State<Historique> {
 
   Future<bool> getUtilsData() async {
     try {
-      var result =
-          await DataSource.GetInstance!.getData(url: 'get_list_payement.php');
+      var result = await DataSource.GetInstance!.getData(
+          url:
+              'get_list_payement_by_id_agent.php?idAgent=${MyPreferences.userId}');
       if (result.statusCode == 200) {
         setState(() {
           listedata = jsonDecode(result.body);
@@ -64,13 +66,13 @@ class _StateBody extends State<Historique> {
                     return CardOper(
                       date: data['datePayement'],
                       devise: data['device'],
-                      id: data['idpayement'],
+                      id: 'ID : ${data['idpayement']}',
                       montant: data['montant'],
                       motif:
-                          "${data['Fk_idtaxe']}     ${data['Fk_idmois']}/${data['Fk_idanne']}",
+                          "${data['nom_taxe']}     ${data['nom_mois']}/${data['nom_anne']}",
                       user: data['exploitant'].length > 0
                           ? data['exploitant']
-                          : data['Fk_idacte'],
+                          : data['nom_acte'],
                     );
                   },
                 ),
