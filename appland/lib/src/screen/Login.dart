@@ -151,6 +151,8 @@ class _StateBody extends State<Login> {
     return false;
   }
 
+  var message;
+
   Future<bool> login() async {
     try {
       getUtilsData();
@@ -160,6 +162,7 @@ class _StateBody extends State<Login> {
       var resultat = await DataSource.GetInstance!.isSave(
           url: 'login/login.php',
           body: {'user': username.text.trim(), 'pass': password.text.trim()});
+      message = await jsonDecode(resultat.body);
       if (resultat.statusCode == 200) {
         var res = await jsonDecode(resultat.body);
         if (res.length > 0) {
@@ -173,12 +176,30 @@ class _StateBody extends State<Login> {
         } else {
           // Display a message login failed
         }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+            "Identifiants de connextion erronés",
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+            textAlign: TextAlign.center,
+          ),
+          backgroundColor: color_green,
+        ));
       }
     } catch (_) {
       setState(() {
         inProgress = false;
       });
-      print(_.toString());
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text(
+          "Identifiants de connextion erronés",
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+          textAlign: TextAlign.center,
+        ),
+        backgroundColor: color_green,
+      ));
     }
     return false;
   }

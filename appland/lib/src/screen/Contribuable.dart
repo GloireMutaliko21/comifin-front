@@ -101,7 +101,7 @@ class _StateBody extends State<Contribuable> {
                   const SizedBox(height: 100),
                   buildTextField(
                     child: cbList(
-                        list: listElement(val: contrib),
+                        list: listElement(val: taxesJours),
                         title: "Contribution",
                         valeur: null,
                         onChanged: (val) {
