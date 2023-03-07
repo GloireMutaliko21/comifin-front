@@ -211,7 +211,7 @@ class _StateBody extends State<Contribuable> {
                             ),
                             const SizedBox(width: 10),
                             Text(
-                              "Contribution".toUpperCase(),
+                              "COMIFIN".toUpperCase(),
                               style: const TextStyle(
                                 color: custom_black,
                                 fontWeight: FontWeight.bold,
